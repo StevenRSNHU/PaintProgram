@@ -117,6 +117,8 @@
             this.RTextBox.Name = "RTextBox";
             this.RTextBox.Size = new System.Drawing.Size(36, 22);
             this.RTextBox.TabIndex = 7;
+            this.RTextBox.Text = "0";
+            this.RTextBox.TextChanged += new System.EventHandler(this.RTextBox_TextChanged);
             // 
             // GTextBox
             // 
@@ -124,6 +126,8 @@
             this.GTextBox.Name = "GTextBox";
             this.GTextBox.Size = new System.Drawing.Size(36, 22);
             this.GTextBox.TabIndex = 8;
+            this.GTextBox.Text = "0";
+            this.GTextBox.TextChanged += new System.EventHandler(this.GTextBox_TextChanged);
             // 
             // BTextBox
             // 
@@ -131,6 +135,8 @@
             this.BTextBox.Name = "BTextBox";
             this.BTextBox.Size = new System.Drawing.Size(36, 22);
             this.BTextBox.TabIndex = 9;
+            this.BTextBox.Text = "0";
+            this.BTextBox.TextChanged += new System.EventHandler(this.BTextBox_TextChanged);
             // 
             // CreateBtn
             // 
@@ -170,6 +176,7 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(160, 146);
             this.panel2.TabIndex = 15;
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // radioButton2
             // 
