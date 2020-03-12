@@ -72,21 +72,37 @@ namespace paint_project
 
         private void GTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(GTextBox.Text))
+            try
             {
+                if (!string.IsNullOrEmpty(GTextBox.Text))
+                {
 
 
-                paint.SetColor(RTextBox.Text, GTextBox.Text, BTextBox.Text);
+                    paint.SetColor(RTextBox.Text, GTextBox.Text, BTextBox.Text);
+                }
+            }
+            catch (Exception)
+            {
+                //make popo up box and set value back to 0
+
             }
         }
 
         private void BTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(BTextBox.Text))
+            try
             {
+                if (!string.IsNullOrEmpty(BTextBox.Text))
+                {
 
 
-                paint.SetColor(RTextBox.Text, GTextBox.Text, BTextBox.Text);
+                    paint.SetColor(RTextBox.Text, GTextBox.Text, BTextBox.Text);
+                }
+            }
+            catch (Exception)
+            {
+                //make popo up box and set value back to 0
+
             }
         }
     }
