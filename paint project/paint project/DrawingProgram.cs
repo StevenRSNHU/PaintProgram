@@ -12,6 +12,7 @@ namespace paint_project
 {
     public partial class DrawingProgram : Form
     {
+        string shape;
         Painter _painter = new Painter();
 
         public DrawingProgram()
@@ -21,7 +22,7 @@ namespace paint_project
 
         private void CreateButton_Click(object sender, EventArgs e)
         {
-
+            DrawingPanel.Paint += new PaintEventHandler(this.DrawingPanel_Paint);
         }
 
         private void ClearButton_Click(object sender, EventArgs e)
@@ -41,22 +42,26 @@ namespace paint_project
             Graphics g = e.Graphics;
             Pen userPen = new Pen(Color.FromArgb(_painter.GetRed(), _painter.GetGreen(), _painter.GetBlue()));
 
-            switch (this.ShapeBox.Text)
+            switch (shape)
             {
                 case "Rectangle":
-                    g.DrawRectangle(userPen, );// need to add in starting coordinates and dimensions
+                    g.DrawRectangle(userPen,100, 100, 100,100 );// need to add in starting coordinates and dimensions
                     break;
-                case "Circle";
-                    g.DrawEllipse(userPen, );//needs starting coordinates and radius
+                case "Circle":
+                    g.DrawEllipse(userPen,100, 100, 100, 100 );//needs starting coordinates and radius
                     break;
-                case "Triangle":
+                /*case "Triangle":
                     g.DrawLine(userPen, );
-                    break;
+                    break;*/
 
 
                 default:
                     break;
             }
+        }
+        private void PickShapeButton_Click(object sender, EventArgs e)
+        {
+            shape = ShapeBox.SelectedItem.ToString();
         }
 
         private void BLabel_Click(object sender, EventArgs e)
