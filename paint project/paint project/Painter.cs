@@ -6,29 +6,24 @@ using System.Threading.Tasks;
 
 namespace paint_project
 {
-    class Paint
+    class Painter
     {
         private int R, G, B;
-        
-        public Paint()
-        {
-
-        }
 
         public void SetColor(string R, string G, string B )
         {
             int r, g, b;
             if (!int.TryParse(R, out r))
             {
-                throw new System.ArgumentException("Red is not an integer", "R");
+                throw new System.ArgumentException(@"Red is not an integer", "R");
             }
             if (!int.TryParse(G, out g))
             {
-                throw new System.ArgumentException("Green is not an integer", "G");
+                throw new System.ArgumentException(@"Green is not an integer", "G");
             }
             if (!int.TryParse(B, out b))
             {
-                throw new System.ArgumentException("Blue is not an integer", "B");
+                throw new System.ArgumentException(@"Blue is not an integer", "B");
             }
 
             if (r >= 0 && r <= 255)
@@ -44,17 +39,17 @@ namespace paint_project
 
                     }
                     else {
-                        throw new System.ArgumentException("Blue is not within range of 0 - 255", "B");
+                        throw new System.ArgumentException(@"Blue is not within range of 0 - 255", "B");
                     }
                 }
                 else
                 {
-                    throw new System.ArgumentException("Green is not within range of 0 - 255", "G");
+                    throw new System.ArgumentException(@"Green is not within range of 0 - 255", "G");
                 }
             }
             else
             {
-                throw new System.ArgumentException("Red is not within range of 0 - 255", "R");
+                throw new System.ArgumentException(@"Red is not within range of 0 - 255", "R");
             }
         }
 

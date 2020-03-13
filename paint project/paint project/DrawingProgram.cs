@@ -10,26 +10,30 @@ using System.Windows.Forms;
 
 namespace paint_project
 {
-    public partial class Form1 : Form
+    public partial class DrawingProgram : Form
     {
-        Paint paint = new Paint();
+        Painter _painter = new Painter();
 
-        public Form1()
+        public DrawingProgram()
         {
             InitializeComponent();
         }
 
-        private void ShapeCBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void CreateButton_Click(object sender, EventArgs e)
         {
-            ShapeCBox.Items.Add("Rectangle");
 
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void ClearButton_Click(object sender, EventArgs e)
         {
-            RTextBox.TextChanged += new System.EventHandler(this.RTextBox_TextChanged);
-            GTextBox.TextChanged += new System.EventHandler(this.GTextBox_TextChanged);
-            BTextBox.TextChanged += new System.EventHandler(this.BTextBox_TextChanged);
+
+        }
+
+        private void DrawingProgram_Load(object sender, EventArgs e)
+        {
+            RedTextBox.TextChanged += new System.EventHandler(this.RTextBox_TextChanged);
+            GreenTextBox.TextChanged += new System.EventHandler(this.GTextBox_TextChanged);
+            BlueTextBox.TextChanged += new System.EventHandler(this.BTextBox_TextChanged);
         }
 
         private void BLabel_Click(object sender, EventArgs e)
@@ -42,25 +46,15 @@ namespace paint_project
             }
         }
 
-        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-        
         private void RTextBox_TextChanged(object sender, EventArgs e)
         {
             try
             {
-                if (!string.IsNullOrEmpty(RTextBox.Text))
+                if (!string.IsNullOrEmpty(RedTextBox.Text))
                 {
 
 
-                    paint.SetColor(RTextBox.Text, GTextBox.Text, BTextBox.Text);
+                    _painter.SetColor(RedTextBox.Text, GreenTextBox.Text, BlueTextBox.Text);
                 }
             }
             catch (Exception)
@@ -74,11 +68,11 @@ namespace paint_project
         {
             try
             {
-                if (!string.IsNullOrEmpty(GTextBox.Text))
+                if (!string.IsNullOrEmpty(GreenTextBox.Text))
                 {
 
 
-                    paint.SetColor(RTextBox.Text, GTextBox.Text, BTextBox.Text);
+                    _painter.SetColor(RedTextBox.Text, GreenTextBox.Text, BlueTextBox.Text);
                 }
             }
             catch (Exception)
@@ -92,11 +86,11 @@ namespace paint_project
         {
             try
             {
-                if (!string.IsNullOrEmpty(BTextBox.Text))
+                if (!string.IsNullOrEmpty(BlueTextBox.Text))
                 {
 
 
-                    paint.SetColor(RTextBox.Text, GTextBox.Text, BTextBox.Text);
+                    _painter.SetColor(RedTextBox.Text, GreenTextBox.Text, BlueTextBox.Text);
                 }
             }
             catch (Exception)
