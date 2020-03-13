@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Coordinates.cs" />
+    <Compile Include="Dimensions.cs" />
     <Compile Include="DrawingProgram.cs">
       <SubType>Form</SubType>
     </Compile>
