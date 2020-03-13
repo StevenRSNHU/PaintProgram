@@ -55,18 +55,19 @@
             // DrawingPanel
             // 
             this.DrawingPanel.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.DrawingPanel.Location = new System.Drawing.Point(2, 2);
-            this.DrawingPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.DrawingPanel.Location = new System.Drawing.Point(3, 2);
+            this.DrawingPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.DrawingPanel.Name = "DrawingPanel";
-            this.DrawingPanel.Size = new System.Drawing.Size(500, 400);
+            this.DrawingPanel.Size = new System.Drawing.Size(667, 492);
             this.DrawingPanel.TabIndex = 0;
+            this.DrawingPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.DrawingPanel_Paint);
             // 
             // ClearButton
             // 
             this.ClearButton.Location = new System.Drawing.Point(574, 182);
             this.ClearButton.Margin = new System.Windows.Forms.Padding(2);
             this.ClearButton.Name = "ClearButton";
-            this.ClearButton.Size = new System.Drawing.Size(57, 32);
+            this.ClearButton.Size = new System.Drawing.Size(76, 39);
             this.ClearButton.TabIndex = 1;
             this.ClearButton.Text = "Clear";
             this.ClearButton.UseVisualStyleBackColor = true;
@@ -90,57 +91,54 @@
             // RLabel
             // 
             this.RLabel.AutoSize = true;
-            this.RLabel.Location = new System.Drawing.Point(522, 36);
-            this.RLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.RLabel.Location = new System.Drawing.Point(696, 44);
             this.RLabel.Name = "RLabel";
-            this.RLabel.Size = new System.Drawing.Size(15, 13);
+            this.RLabel.Size = new System.Drawing.Size(18, 17);
             this.RLabel.TabIndex = 4;
             this.RLabel.Text = "R";
             // 
             // GreenLabel
             // 
             this.GreenLabel.AutoSize = true;
-            this.GreenLabel.Location = new System.Drawing.Point(565, 36);
-            this.GreenLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.GreenLabel.Location = new System.Drawing.Point(753, 44);
             this.GreenLabel.Name = "GreenLabel";
-            this.GreenLabel.Size = new System.Drawing.Size(15, 13);
+            this.GreenLabel.Size = new System.Drawing.Size(19, 17);
             this.GreenLabel.TabIndex = 5;
             this.GreenLabel.Text = "G";
             // 
             // BlueLabel
             // 
             this.BlueLabel.AutoSize = true;
-            this.BlueLabel.Location = new System.Drawing.Point(608, 36);
-            this.BlueLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.BlueLabel.Location = new System.Drawing.Point(811, 44);
             this.BlueLabel.Name = "BlueLabel";
-            this.BlueLabel.Size = new System.Drawing.Size(14, 13);
+            this.BlueLabel.Size = new System.Drawing.Size(17, 17);
             this.BlueLabel.TabIndex = 6;
             this.BlueLabel.Text = "B";
             // 
             // RedTextBox
             // 
-            this.RedTextBox.Location = new System.Drawing.Point(517, 51);
-            this.RedTextBox.Margin = new System.Windows.Forms.Padding(2);
+            this.RedTextBox.Location = new System.Drawing.Point(689, 63);
+            this.RedTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RedTextBox.Name = "RedTextBox";
-            this.RedTextBox.Size = new System.Drawing.Size(28, 20);
+            this.RedTextBox.Size = new System.Drawing.Size(36, 22);
             this.RedTextBox.TabIndex = 7;
             this.RedTextBox.TextChanged += new System.EventHandler(this.RTextBox_TextChanged);
             // 
             // GreenTextBox
             // 
-            this.GreenTextBox.Location = new System.Drawing.Point(560, 51);
-            this.GreenTextBox.Margin = new System.Windows.Forms.Padding(2);
+            this.GreenTextBox.Location = new System.Drawing.Point(747, 63);
+            this.GreenTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.GreenTextBox.Name = "GreenTextBox";
-            this.GreenTextBox.Size = new System.Drawing.Size(28, 20);
+            this.GreenTextBox.Size = new System.Drawing.Size(36, 22);
             this.GreenTextBox.TabIndex = 8;
             this.GreenTextBox.TextChanged += new System.EventHandler(this.GTextBox_TextChanged);
             // 
             // BlueTextBox
             // 
-            this.BlueTextBox.Location = new System.Drawing.Point(603, 51);
-            this.BlueTextBox.Margin = new System.Windows.Forms.Padding(2);
+            this.BlueTextBox.Location = new System.Drawing.Point(804, 63);
+            this.BlueTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.BlueTextBox.Name = "BlueTextBox";
-            this.BlueTextBox.Size = new System.Drawing.Size(28, 20);
+            this.BlueTextBox.Size = new System.Drawing.Size(36, 22);
             this.BlueTextBox.TabIndex = 9;
             this.BlueTextBox.TextChanged += new System.EventHandler(this.BTextBox_TextChanged);
             // 
@@ -149,7 +147,7 @@
             this.CreateButton.Location = new System.Drawing.Point(511, 182);
             this.CreateButton.Margin = new System.Windows.Forms.Padding(2);
             this.CreateButton.Name = "CreateButton";
-            this.CreateButton.Size = new System.Drawing.Size(57, 32);
+            this.CreateButton.Size = new System.Drawing.Size(76, 39);
             this.CreateButton.TabIndex = 10;
             this.CreateButton.Text = "Create";
             this.CreateButton.UseVisualStyleBackColor = true;
@@ -265,7 +263,7 @@
             // 
             // DrawingProgram
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(638, 407);
             this.Controls.Add(this.WidthTextBox_Rectangle);
@@ -290,7 +288,7 @@
             this.Controls.Add(this.ShapeBox);
             this.Controls.Add(this.ClearButton);
             this.Controls.Add(this.DrawingPanel);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "DrawingProgram";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DrawingProgram";

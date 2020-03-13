@@ -12,7 +12,8 @@ namespace paint_project
 {
     public partial class DrawingProgram : Form
     {
-        private readonly Painter _painter = new Painter();
+        string shape;
+        Painter _painter = new Painter();
 
         public DrawingProgram()
         {
@@ -21,7 +22,7 @@ namespace paint_project
 
         private void CreateButton_Click(object sender, EventArgs e)
         {
-
+            DrawingPanel.Paint += new PaintEventHandler(this.DrawingPanel_Paint);
         }
 
         private void ShapeBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -62,6 +63,40 @@ namespace paint_project
             RedTextBox.TextChanged += new System.EventHandler(this.RTextBox_TextChanged);
             GreenTextBox.TextChanged += new System.EventHandler(this.GTextBox_TextChanged);
             BlueTextBox.TextChanged += new System.EventHandler(this.BTextBox_TextChanged);
+           
+        }
+
+        private void DrawingPanel_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            Pen userPen = new Pen(Color.FromArgb(_painter.GetRed(), _painter.GetGreen(), _painter.GetBlue()));
+
+            switch (shape)
+            {
+                case "Rectangle":
+                    g.DrawRectangle(userPen,100, 100, 100,100 );// need to add in starting coordinates and dimensions
+                    break;
+                case "Circle":
+                    g.DrawEllipse(userPen,100, 100, 100, 100 );//needs starting coordinates and radius
+                    break;
+                /*case "Triangle":
+                    g.DrawLine(userPen, );
+                    break;*/
+
+
+                default:
+                    break;
+            }
+        }
+        private void PickShapeButton_Click(object sender, EventArgs e)
+        {
+            object selectedShape = ShapeBox.SelectedItem;
+            shape = selectedShape.ToString();
+        }
+
+        private void BLabel_Click(object sender, EventArgs e)
+        {
+          
         }
 
         private void RTextBox_TextChanged(object sender, EventArgs e)
@@ -70,15 +105,14 @@ namespace paint_project
             {
                 if (!string.IsNullOrEmpty(RedTextBox.Text))
                 {
-
-
                     _painter.SetRed(RedTextBox.Text);
                 }
             }
-            catch (Exception)
+            catch (FormatException)
             {
                 //make popo up box and set value back to 0
-              
+                
+
             }
         }
 
@@ -88,12 +122,10 @@ namespace paint_project
             {
                 if (!string.IsNullOrEmpty(GreenTextBox.Text))
                 {
-
-
                     _painter.SetGreen(GreenTextBox.Text);
                 }
             }
-            catch (Exception)
+            catch (FormatException)
             {
                 //make popo up box and set value back to 0
 
@@ -106,16 +138,19 @@ namespace paint_project
             {
                 if (!string.IsNullOrEmpty(BlueTextBox.Text))
                 {
-
-
                     _painter.SetBlue(BlueTextBox.Text);
                 }
             }
-            catch (Exception)
+            catch (FormatException)
             {
                 //make popo up box and set value back to 0
 
             }
+        }
+
+        private void ShapeBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            shape = ShapeBox.SelectedItem.ToString();
         }
 
         private void Clear()
