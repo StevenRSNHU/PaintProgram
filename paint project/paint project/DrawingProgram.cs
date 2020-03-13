@@ -21,7 +21,6 @@ namespace paint_project
 
         private void CreateButton_Click(object sender, EventArgs e)
         {
-            //DrawingPanel.Paint += new PaintEventHandler(this.DrawingPanel_Paint);
             DrawingPanel.Invalidate();
         }
 
@@ -30,22 +29,22 @@ namespace paint_project
             switch (ShapeBox.SelectedIndex)
             {
                 case 0: //rectangle
+                    ClearContext();
                     RedTextBox.Select();
-                    Clear();
                     WidthLabel.Show();
                     HeightLabel.Show();
                     WidthTextBox_Rectangle.Show();
                     HeightTextBox_Rectangle.Show();
                     break;
                 case 1: //square
+                    ClearContext();
                     RedTextBox.Select();
-                    Clear();
                     WidthLabel.Show();
                     WidthTextBox_Square.Show();
                     break;
                 case 2: //circle
+                    ClearContext();
                     RedTextBox.Select();
-                    Clear();
                     RadiusLabel.Show();
                     RadiusTextBox_Circle.Show();
                     break;
@@ -54,6 +53,7 @@ namespace paint_project
 
         private void ClearButton_Click(object sender, EventArgs e)
         {
+            ClearAll();
             DrawingPanel.Invalidate();
         }
 
@@ -86,7 +86,7 @@ namespace paint_project
             }
         }
 
-        private void Clear()
+        private void ClearAll()
         {
             foreach (Control control in Controls)
             {
@@ -98,6 +98,28 @@ namespace paint_project
                         break;
                     case TextBox textBox:
                         textBox.Text = string.Empty;
+                        if (textBox.Name == "RadiusTextBox_Circle") textBox.Hide();
+                        if (textBox.Name == "WidthTextBox_Square") textBox.Hide();
+                        if (textBox.Name == "WidthTextBox_Rectangle") textBox.Hide();
+                        if (textBox.Name == "HeightTextBox_Rectangle") textBox.Hide();
+                        break;
+                    case Label label:
+                        if (label.Name == "RadiusLabel") label.Hide();
+                        if (label.Name == "WidthLabel") label.Hide();
+                        if (label.Name == "HeightLabel") label.Hide();
+                        break;
+                }
+            }
+        }
+
+        private void ClearContext()
+        {
+            foreach (Control control in Controls)
+            {
+                switch (control)
+                {
+                    case TextBox textBox:
+                        if (textBox.Name != "RedTextBox" && textBox.Name != "GreenTextBox" && textBox.Name != "BlueTextBox") textBox.Text = string.Empty;
                         if (textBox.Name == "RadiusTextBox_Circle") textBox.Hide();
                         if (textBox.Name == "WidthTextBox_Square") textBox.Hide();
                         if (textBox.Name == "WidthTextBox_Rectangle") textBox.Hide();
