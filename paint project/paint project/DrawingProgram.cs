@@ -12,7 +12,7 @@ namespace paint_project
 {
     public partial class DrawingProgram : Form
     {
-        Painter _painter = new Painter();
+        private readonly Painter _painter = new Painter();
 
         public DrawingProgram()
         {
@@ -24,9 +24,37 @@ namespace paint_project
 
         }
 
+        private void ShapeBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (ShapeBox.SelectedIndex)
+            {
+                case 0: //rectangle
+                    RedTextBox.Select();
+                    Clear();
+                    WidthLabel.Show();
+                    HeightLabel.Show();
+                    WidthTextBox_Rectangle.Show();
+                    HeightTextBox_Rectangle.Show();
+                    break;
+                case 1: //square
+                    RedTextBox.Select();
+                    Clear();
+                    WidthLabel.Show();
+                    WidthTextBox_Square.Show();
+                    break;
+                case 2: //circle
+                    RedTextBox.Select();
+                    Clear();
+                    RadiusLabel.Show();
+                    RadiusTextBox_Circle.Show();
+                    break;
+            }
+        }
+
         private void ClearButton_Click(object sender, EventArgs e)
         {
-
+            Clear();
+            DrawingPanel.Invalidate();
         }
 
         private void DrawingProgram_Load(object sender, EventArgs e)
@@ -34,16 +62,6 @@ namespace paint_project
             RedTextBox.TextChanged += new System.EventHandler(this.RTextBox_TextChanged);
             GreenTextBox.TextChanged += new System.EventHandler(this.GTextBox_TextChanged);
             BlueTextBox.TextChanged += new System.EventHandler(this.BTextBox_TextChanged);
-        }
-
-        private void BLabel_Click(object sender, EventArgs e)
-        {
-            if ( radioButton1.Checked == true)
-            {
-
-                
-
-            }
         }
 
         private void RTextBox_TextChanged(object sender, EventArgs e)
@@ -54,7 +72,7 @@ namespace paint_project
                 {
 
 
-                    _painter.SetColor(RedTextBox.Text, GreenTextBox.Text, BlueTextBox.Text);
+                    _painter.SetRed(RedTextBox.Text);
                 }
             }
             catch (Exception)
@@ -72,7 +90,7 @@ namespace paint_project
                 {
 
 
-                    _painter.SetColor(RedTextBox.Text, GreenTextBox.Text, BlueTextBox.Text);
+                    _painter.SetGreen(GreenTextBox.Text);
                 }
             }
             catch (Exception)
@@ -90,13 +108,39 @@ namespace paint_project
                 {
 
 
-                    _painter.SetColor(RedTextBox.Text, GreenTextBox.Text, BlueTextBox.Text);
+                    _painter.SetBlue(BlueTextBox.Text);
                 }
             }
             catch (Exception)
             {
                 //make popo up box and set value back to 0
 
+            }
+        }
+
+        private void Clear()
+        {
+            foreach (Control control in Controls)
+            {
+                switch (control)
+                {
+                    case ComboBox comboBox:
+                        comboBox.SelectedIndex = -1;
+                        comboBox.Text = @"Shape";
+                        break;
+                    case TextBox textBox:
+                        textBox.Text = string.Empty;
+                        if (textBox.Name == "RadiusTextBox_Circle") textBox.Hide();
+                        if (textBox.Name == "WidthTextBox_Square") textBox.Hide();
+                        if (textBox.Name == "WidthTextBox_Rectangle") textBox.Hide();
+                        if (textBox.Name == "HeightTextBox_Rectangle") textBox.Hide();
+                        break;
+                    case Label label:
+                        if (label.Name == "RadiusLabel") label.Hide();
+                        if (label.Name == "WidthLabel") label.Hide();
+                        if (label.Name == "HeightLabel") label.Hide();
+                        break;
+                }
             }
         }
     }
