@@ -8,50 +8,92 @@ namespace paint_project
 {
     class Painter
     {
-        private int R, G, B;
+        private int rVal { get; set; }//Red value for the RGB of the shape lines
+        private int gVal { get; set; }//Green value for the RGB of the shape lines
+        private int bVal { get; set; }//Blue value for the RGB of the shape lines
 
-        public void SetColor(string R, string G, string B )
+        public Painter()
         {
-            int r, g, b;
-            if (!int.TryParse(R, out r))
-            {
-                throw new System.ArgumentException(@"Red is not an integer", "R");
-            }
-            if (!int.TryParse(G, out g))
-            {
-                throw new System.ArgumentException(@"Green is not an integer", "G");
-            }
-            if (!int.TryParse(B, out b))
-            {
-                throw new System.ArgumentException(@"Blue is not an integer", "B");
-            }
+            this.rVal = GetRed();
+            this.bVal = GetBlue();
+            this.gVal = GetGreen();
+        }
 
-            if (r >= 0 && r <= 255)
+        public void SetRed(string r)
+        {
+            int red;
+
+            if (!string.IsNullOrEmpty(r))//When input in the TXTBX, Parse input 
             {
-                this.R = r;
-                if ( g >= 0  && g <= 255)
+                if (int.TryParse(r, out red))
                 {
-                    this.G = g;
-                    if (b >= 0 && b <= 255)
+                    if (red >= 0 && red < 256)
                     {
-                        this.B = b;
-                        
-
+                        this.rVal = red;
                     }
-                    else {
-                        throw new System.ArgumentException(@"Blue is not within range of 0 - 255", "B");
+                    else
+                    {
+                        System.Windows.Forms.MessageBox.Show("Value out of range please try again");
                     }
                 }
-                else
-                {
-                    throw new System.ArgumentException(@"Green is not within range of 0 - 255", "G");
-                }
-            }
-            else
-            {
-                throw new System.ArgumentException(@"Red is not within range of 0 - 255", "R");
             }
         }
+
+        public void SetBlue(string b)
+        {
+            int blue;
+
+            if (!string.IsNullOrEmpty(b))
+            {
+                if (int.TryParse(b, out blue))
+                {
+                    if (blue >= 0 && blue < 256)
+                    {
+                        this.bVal = blue;
+                    }
+                    else
+                    {
+                        System.Windows.Forms.MessageBox.Show("Value out of range please try again");
+                    }
+                }
+            }
+        }
+
+        public void SetGreen(string g)
+        {
+            int green;
+
+            if (!string.IsNullOrEmpty(g))
+            {
+                if (int.TryParse(g, out green))
+                {
+                    if (green >= 0 && green < 256)
+                    {
+                        this.gVal = green;
+                    }
+                    else
+                    {
+                        System.Windows.Forms.MessageBox.Show("Value out of range please try again");
+                    }
+                }
+            }
+        }
+
+        public int GetRed()
+        {
+            return rVal;
+        }
+
+        public int GetGreen()
+        {
+            return gVal;
+        }
+
+        public int GetBlue()
+        {
+            return bVal;
+        }
+
 
 
 
