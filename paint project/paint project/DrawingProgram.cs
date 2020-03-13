@@ -36,14 +36,32 @@ namespace paint_project
             BlueTextBox.TextChanged += new System.EventHandler(this.BTextBox_TextChanged);
         }
 
+        private void DrawingPanel_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            Pen userPen = new Pen(Color.FromArgb(_painter.GetRed(), _painter.GetGreen(), _painter.GetBlue()));
+
+            switch (this.ShapeBox.Text)
+            {
+                case "Rectangle":
+                    g.DrawRectangle(userPen, );// need to add in starting coordinates and dimensions
+                    break;
+                case "Circle";
+                    g.DrawEllipse(userPen, );//needs starting coordinates and radius
+                    break;
+                case "Triangle":
+                    g.DrawLine(userPen, );
+                    break;
+
+
+                default:
+                    break;
+            }
+        }
+
         private void BLabel_Click(object sender, EventArgs e)
         {
-            if ( radioButton1.Checked == true)
-            {
-
-                
-
-            }
+          
         }
 
         private void RTextBox_TextChanged(object sender, EventArgs e)
@@ -52,12 +70,10 @@ namespace paint_project
             {
                 if (!string.IsNullOrEmpty(RedTextBox.Text))
                 {
-
-
-                    _painter.SetColor(RedTextBox.Text, GreenTextBox.Text, BlueTextBox.Text);
+                    _painter.SetRed(RedTextBox.Text);
                 }
             }
-            catch (Exception)
+            catch (FormatException)
             {
                 //make popo up box and set value back to 0
               
@@ -70,12 +86,10 @@ namespace paint_project
             {
                 if (!string.IsNullOrEmpty(GreenTextBox.Text))
                 {
-
-
-                    _painter.SetColor(RedTextBox.Text, GreenTextBox.Text, BlueTextBox.Text);
+                    _painter.SetGreen(GreenTextBox.Text);
                 }
             }
-            catch (Exception)
+            catch (FormatException)
             {
                 //make popo up box and set value back to 0
 
@@ -88,12 +102,10 @@ namespace paint_project
             {
                 if (!string.IsNullOrEmpty(BlueTextBox.Text))
                 {
-
-
-                    _painter.SetColor(RedTextBox.Text, GreenTextBox.Text, BlueTextBox.Text);
+                    _painter.SetBlue(BlueTextBox.Text);
                 }
             }
-            catch (Exception)
+            catch (FormatException)
             {
                 //make popo up box and set value back to 0
 
