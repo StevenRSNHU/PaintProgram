@@ -12,7 +12,6 @@ namespace paint_project
 {
     public partial class DrawingProgram : Form
     {
-        string shape;
         Painter _painter = new Painter();
 
         public DrawingProgram()
@@ -22,7 +21,8 @@ namespace paint_project
 
         private void CreateButton_Click(object sender, EventArgs e)
         {
-            DrawingPanel.Paint += new PaintEventHandler(this.DrawingPanel_Paint);
+            //DrawingPanel.Paint += new PaintEventHandler(this.DrawingPanel_Paint);
+            DrawingPanel.Invalidate();
         }
 
         private void ShapeBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -54,7 +54,6 @@ namespace paint_project
 
         private void ClearButton_Click(object sender, EventArgs e)
         {
-            Clear();
             DrawingPanel.Invalidate();
         }
 
@@ -71,32 +70,46 @@ namespace paint_project
             Graphics g = e.Graphics;
             Pen userPen = new Pen(Color.FromArgb(_painter.GetRed(), _painter.GetGreen(), _painter.GetBlue()));
 
-            switch (shape)
+            switch (ShapeBox.SelectedIndex)
             {
-                case "Rectangle":
+                case 0:
                     g.DrawRectangle(userPen,100, 100, 100,100 );// need to add in starting coordinates and dimensions
                     break;
-                case "Circle":
-                    g.DrawEllipse(userPen,100, 100, 100, 100 );//needs starting coordinates and radius
+                case 1:
+                    g.DrawRectangle(userPen, 100, 100, 100, 100);// need to add in starting coordinates and dimensions
                     break;
-                /*case "Triangle":
-                    g.DrawLine(userPen, );
-                    break;*/
-
-
+                case 2:
+                    g.DrawRectangle(userPen, 100, 100, 100, 100);// need to add in starting coordinates and dimensions
+                    break;
                 default:
                     break;
             }
         }
-        private void PickShapeButton_Click(object sender, EventArgs e)
-        {
-            object selectedShape = ShapeBox.SelectedItem;
-            shape = selectedShape.ToString();
-        }
 
-        private void BLabel_Click(object sender, EventArgs e)
+        private void Clear()
         {
-          
+            foreach (Control control in Controls)
+            {
+                switch (control)
+                {
+                    case ComboBox comboBox:
+                        comboBox.SelectedIndex = -1;
+                        comboBox.Text = @"Shape";
+                        break;
+                    case TextBox textBox:
+                        textBox.Text = string.Empty;
+                        if (textBox.Name == "RadiusTextBox_Circle") textBox.Hide();
+                        if (textBox.Name == "WidthTextBox_Square") textBox.Hide();
+                        if (textBox.Name == "WidthTextBox_Rectangle") textBox.Hide();
+                        if (textBox.Name == "HeightTextBox_Rectangle") textBox.Hide();
+                        break;
+                    case Label label:
+                        if (label.Name == "RadiusLabel") label.Hide();
+                        if (label.Name == "WidthLabel") label.Hide();
+                        if (label.Name == "HeightLabel") label.Hide();
+                        break;
+                }
+            }
         }
 
         private void RTextBox_TextChanged(object sender, EventArgs e)
@@ -145,37 +158,6 @@ namespace paint_project
             {
                 //make popo up box and set value back to 0
 
-            }
-        }
-
-        private void ShapeBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            shape = ShapeBox.SelectedItem.ToString();
-        }
-
-        private void Clear()
-        {
-            foreach (Control control in Controls)
-            {
-                switch (control)
-                {
-                    case ComboBox comboBox:
-                        comboBox.SelectedIndex = -1;
-                        comboBox.Text = @"Shape";
-                        break;
-                    case TextBox textBox:
-                        textBox.Text = string.Empty;
-                        if (textBox.Name == "RadiusTextBox_Circle") textBox.Hide();
-                        if (textBox.Name == "WidthTextBox_Square") textBox.Hide();
-                        if (textBox.Name == "WidthTextBox_Rectangle") textBox.Hide();
-                        if (textBox.Name == "HeightTextBox_Rectangle") textBox.Hide();
-                        break;
-                    case Label label:
-                        if (label.Name == "RadiusLabel") label.Hide();
-                        if (label.Name == "WidthLabel") label.Hide();
-                        if (label.Name == "HeightLabel") label.Hide();
-                        break;
-                }
             }
         }
     }
