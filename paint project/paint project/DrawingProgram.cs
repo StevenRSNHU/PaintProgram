@@ -35,6 +35,7 @@ namespace paint_project
             RedTextBox.TextChanged += new System.EventHandler(this.RTextBox_TextChanged);
             GreenTextBox.TextChanged += new System.EventHandler(this.GTextBox_TextChanged);
             BlueTextBox.TextChanged += new System.EventHandler(this.BTextBox_TextChanged);
+           
         }
 
         private void DrawingPanel_Paint(object sender, PaintEventArgs e)
@@ -61,7 +62,8 @@ namespace paint_project
         }
         private void PickShapeButton_Click(object sender, EventArgs e)
         {
-            shape = ShapeBox.SelectedItem.ToString();
+            object selectedShape = ShapeBox.SelectedItem;
+            shape = selectedShape.ToString();
         }
 
         private void BLabel_Click(object sender, EventArgs e)
@@ -81,7 +83,8 @@ namespace paint_project
             catch (FormatException)
             {
                 //make popo up box and set value back to 0
-              
+                
+
             }
         }
 
@@ -115,6 +118,11 @@ namespace paint_project
                 //make popo up box and set value back to 0
 
             }
+        }
+
+        private void ShapeBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            shape = ShapeBox.SelectedItem.ToString();
         }
     }
 }
