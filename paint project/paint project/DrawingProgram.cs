@@ -13,6 +13,8 @@ namespace paint_project
     public partial class DrawingProgram : Form
     {
         Painter _painter = new Painter();
+        Coordinates _coordinates = new Coordinates();
+        Dimensions shape = new Dimensions();
 
         public DrawingProgram()
         {
@@ -73,13 +75,16 @@ namespace paint_project
             switch (ShapeBox.SelectedIndex)
             {
                 case 0:
-                    g.DrawRectangle(userPen,100, 100, 100,100 );// need to add in starting coordinates and dimensions
+                    g.DrawRectangle(userPen,_coordinates.XCoordinate(), _coordinates.YCoordinate(),
+                        shape.GetWidth(),shape.GetHeight() );
                     break;
                 case 1:
-                    g.DrawRectangle(userPen, 100, 100, 100, 100);// need to add in starting coordinates and dimensions
+                    g.DrawRectangle(userPen, _coordinates.XCoordinate(), _coordinates.YCoordinate(),
+                        shape.GetWidth(), shape.GetWidth());// need to add in starting coordinates and dimensions
                     break;
                 case 2:
-                    g.DrawRectangle(userPen, 100, 100, 100, 100);// need to add in starting coordinates and dimensions
+                    g.DrawEllipse(userPen, _coordinates.XCoordinate(), _coordinates.YCoordinate(),
+                        shape.GetRadius() * 2, shape.GetRadius() * 2);// need to add in starting coordinates and dimensions
                     break;
                 default:
                     break;
@@ -174,6 +179,102 @@ namespace paint_project
                 if (!string.IsNullOrEmpty(BlueTextBox.Text))
                 {
                     _painter.SetBlue(BlueTextBox.Text);
+                }
+            }
+            catch (FormatException)
+            {
+                //make popo up box and set value back to 0
+
+            }
+        }
+
+        private void XCoordinate_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(XCoordinatesTextBox.Text))
+                {
+                    _coordinates.SetX(XCoordinatesTextBox.Text);
+                }
+            }
+            catch (FormatException)
+            {
+                //make popo up box and set value back to 0
+
+            }
+        }
+
+        private void RactangleHeight_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(HeightTextBox_Rectangle.Text))
+                {
+                    shape.SetHeight(HeightTextBox_Rectangle.Text);
+                }
+            }
+            catch (FormatException)
+            {
+                //make popo up box and set value back to 0
+
+            }
+        }
+
+        private void ReactangleWidth_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(WidthTextBox_Rectangle.Text))
+                {
+                    shape.SetWidth(WidthTextBox_Rectangle.Text);
+                }
+            }
+            catch (FormatException)
+            {
+                //make popo up box and set value back to 0
+
+            }
+        }
+
+        private void YCoordinate_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(YCoordinatesTextBox.Text))
+                {
+                    _coordinates.SetY(YCoordinatesTextBox.Text);
+                }
+            }
+            catch (FormatException)
+            {
+                //make popo up box and set value back to 0
+
+            }
+        }
+
+        private void SquareWidth_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(WidthTextBox_Square.Text))
+                {
+                    shape.SetWidth(WidthTextBox_Square.Text);
+                }
+            }
+            catch (FormatException)
+            {
+                //make popo up box and set value back to 0
+
+            }
+        }
+
+        private void CircleRadius_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(RadiusTextBox_Circle.Text))
+                {
+                    shape.SetRadius(RadiusTextBox_Circle.Text);
                 }
             }
             catch (FormatException)

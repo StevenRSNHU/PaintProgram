@@ -17,13 +17,37 @@ namespace paint_project
             this.Y_Coor = YCoordinate();
         }
 
-        public void SetX()
+        public void SetX(string x)
         {
-            //requires error handling TryParse
+            int x_coor;
+
+            if (int.TryParse(x, out x_coor))
+            {
+                if (x_coor >= 1 && x_coor < 490)
+                {
+                    this.X_Coor = x_coor;
+                }
+                else
+                {
+                    System.Windows.Forms.MessageBox.Show("Value out of range, please try again");
+                }
+            }
         }
-        public void SetY()
+        public void SetY(string y)
         {
-            //requires erro handling TryParse
+            int y_coor;
+
+            if (int.TryParse(y, out y_coor))
+            {
+                if (y_coor >= 1 && y_coor < 490)
+                {
+                    this.Y_Coor = y_coor;
+                }
+                else
+                {
+                    System.Windows.Forms.MessageBox.Show("Value out of range, please try again");
+                }
+            }
         }
         public int XCoordinate()
         {
