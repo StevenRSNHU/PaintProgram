@@ -15,6 +15,7 @@ namespace paint_project
         Painter _painter = new Painter();
         Coordinates _coordinates = new Coordinates();
         Dimensions shape = new Dimensions();
+        private bool mouseDown = false;
 
         public DrawingProgram()
         {
@@ -64,7 +65,9 @@ namespace paint_project
             RedTextBox.TextChanged += new System.EventHandler(this.RTextBox_TextChanged);
             GreenTextBox.TextChanged += new System.EventHandler(this.GTextBox_TextChanged);
             BlueTextBox.TextChanged += new System.EventHandler(this.BTextBox_TextChanged);
-           
+            MessageBox.Show($"Tip: Once you have drawn a shape, click and drag to move the shape.");
+
+
         }
 
         private void DrawingPanel_Paint(object sender, PaintEventArgs e)
@@ -75,18 +78,16 @@ namespace paint_project
             switch (ShapeBox.SelectedIndex)
             {
                 case 0:
-                    g.DrawRectangle(userPen,_coordinates.XCoordinate(), _coordinates.YCoordinate(),
-                        shape.GetWidth(),shape.GetHeight() );
+                    g.DrawRectangle(userPen,_coordinates.GetXCoordinate(), _coordinates.GetYCoordinate(),
+                        shape.GetWidth(), shape.GetHeight() );
                     break;
                 case 1:
-                    g.DrawRectangle(userPen, _coordinates.XCoordinate(), _coordinates.YCoordinate(),
-                        shape.GetWidth(), shape.GetWidth());// need to add in starting coordinates and dimensions
+                    g.DrawRectangle(userPen, _coordinates.GetXCoordinate(), _coordinates.GetYCoordinate(),
+                        shape.GetWidth(), shape.GetWidth());
                     break;
                 case 2:
-                    g.DrawEllipse(userPen, _coordinates.XCoordinate(), _coordinates.YCoordinate(),
-                        shape.GetRadius() * 2, shape.GetRadius() * 2);// need to add in starting coordinates and dimensions
-                    break;
-                default:
+                    g.DrawEllipse(userPen, _coordinates.GetXCoordinate(), _coordinates.GetYCoordinate(),
+                        shape.GetRadius() * 2, shape.GetRadius() * 2);
                     break;
             }
         }
@@ -194,7 +195,23 @@ namespace paint_project
             {
                 if (!string.IsNullOrEmpty(XCoordinatesTextBox.Text))
                 {
-                    _coordinates.SetX(XCoordinatesTextBox.Text);
+                    _coordinates.SetXCoordinate(XCoordinatesTextBox.Text);
+                }
+            }
+            catch (FormatException)
+            {
+                //make popo up box and set value back to 0
+
+            }
+        }
+
+        private void YCoordinate_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(YCoordinatesTextBox.Text))
+                {
+                    _coordinates.SetYCoordinate(YCoordinatesTextBox.Text);
                 }
             }
             catch (FormatException)
@@ -236,22 +253,6 @@ namespace paint_project
             }
         }
 
-        private void YCoordinate_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                if (!string.IsNullOrEmpty(YCoordinatesTextBox.Text))
-                {
-                    _coordinates.SetY(YCoordinatesTextBox.Text);
-                }
-            }
-            catch (FormatException)
-            {
-                //make popo up box and set value back to 0
-
-            }
-        }
-
         private void SquareWidth_TextChanged(object sender, EventArgs e)
         {
             try
@@ -281,6 +282,19 @@ namespace paint_project
             {
                 //make popo up box and set value back to 0
 
+            }
+        }
+
+        //Here begins the code to move drawn objects based on clicking and dragging
+        private void DrawingPanel_MouseDown(object sender, MouseEventArgs e) => mouseDown = true;
+        private void DrawingPanel_MouseUp(object sender, MouseEventArgs e) => mouseDown = false;
+        private void DrawingPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (mouseDown)
+            {
+                _coordinates.SetXCoordinate(e.X.ToString());
+                _coordinates.SetYCoordinate(e.Y.ToString());
+                DrawingPanel.Invalidate();
             }
         }
     }
