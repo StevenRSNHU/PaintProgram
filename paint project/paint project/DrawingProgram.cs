@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace paint_project
@@ -65,7 +59,7 @@ namespace paint_project
             RedTextBox.TextChanged += new System.EventHandler(this.RTextBox_TextChanged);
             GreenTextBox.TextChanged += new System.EventHandler(this.GTextBox_TextChanged);
             BlueTextBox.TextChanged += new System.EventHandler(this.BTextBox_TextChanged);
-            MessageBox.Show($"Tip: Once you have drawn a shape, click and drag to move the shape.");
+            MessageBox.Show($@"Tip: Once you have drawn a shape, click and drag to move the shape.");
 
 
         }
@@ -151,8 +145,8 @@ namespace paint_project
             }
             catch (FormatException)
             {
-                //make popo up box and set value back to 0
-                
+                //make pop-up box and set value back to 0
+
 
             }
         }
@@ -168,7 +162,7 @@ namespace paint_project
             }
             catch (FormatException)
             {
-                //make popo up box and set value back to 0
+                //make pop-up box and set value back to 0
 
             }
         }
@@ -184,7 +178,7 @@ namespace paint_project
             }
             catch (FormatException)
             {
-                //make popo up box and set value back to 0
+                //make pop-up box and set value back to 0
 
             }
         }
@@ -200,7 +194,7 @@ namespace paint_project
             }
             catch (FormatException)
             {
-                //make popo up box and set value back to 0
+                //make pop-up box and set value back to 0
 
             }
         }
@@ -216,12 +210,12 @@ namespace paint_project
             }
             catch (FormatException)
             {
-                //make popo up box and set value back to 0
+                //make pop-up box and set value back to 0
 
             }
         }
 
-        private void RactangleHeight_TextChanged(object sender, EventArgs e)
+        private void RectangleHeight_TextChanged(object sender, EventArgs e)
         {
             try
             {
@@ -232,12 +226,12 @@ namespace paint_project
             }
             catch (FormatException)
             {
-                //make popo up box and set value back to 0
+                //make pop-up box and set value back to 0
 
             }
         }
 
-        private void ReactangleWidth_TextChanged(object sender, EventArgs e)
+        private void RectangleWidth_TextChanged(object sender, EventArgs e)
         {
             try
             {
@@ -248,7 +242,7 @@ namespace paint_project
             }
             catch (FormatException)
             {
-                //make popo up box and set value back to 0
+                //make pop-up box and set value back to 0
 
             }
         }
@@ -264,7 +258,7 @@ namespace paint_project
             }
             catch (FormatException)
             {
-                //make popo up box and set value back to 0
+                //make pop-up box and set value back to 0
 
             }
         }
@@ -280,7 +274,7 @@ namespace paint_project
             }
             catch (FormatException)
             {
-                //make popo up box and set value back to 0
+                //make pop-up box and set value back to 0
 
             }
         }

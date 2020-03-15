@@ -268,7 +268,7 @@
             this.HeightTextBox_Rectangle.Size = new System.Drawing.Size(22, 20);
             this.HeightTextBox_Rectangle.TabIndex = 21;
             this.HeightTextBox_Rectangle.Visible = false;
-            this.HeightTextBox_Rectangle.TextChanged += new System.EventHandler(this.RactangleHeight_TextChanged);
+            this.HeightTextBox_Rectangle.TextChanged += new System.EventHandler(this.RectangleHeight_TextChanged);
             // 
             // WidthTextBox_Rectangle
             // 
@@ -278,7 +278,7 @@
             this.WidthTextBox_Rectangle.Size = new System.Drawing.Size(22, 20);
             this.WidthTextBox_Rectangle.TabIndex = 22;
             this.WidthTextBox_Rectangle.Visible = false;
-            this.WidthTextBox_Rectangle.TextChanged += new System.EventHandler(this.ReactangleWidth_TextChanged);
+            this.WidthTextBox_Rectangle.TextChanged += new System.EventHandler(this.RectangleWidth_TextChanged);
             // 
             // DrawingProgram
             // 
