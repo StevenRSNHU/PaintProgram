@@ -8,9 +8,9 @@ namespace paint_project
 {
     class Dimensions
     {
-        private int Width { get; set; }
         private int Height { get; set; }
-        private int Radius { get; set; }
+        private int Width { get; set; }
+        private int Radius { get; set;}
 
         public Dimensions()
         {
@@ -19,57 +19,54 @@ namespace paint_project
             this.Radius = GetRadius();
         }
 
-        public void ShapeHeight(string h)
+        public void SetHeight(string h)
         {
-            int rectangleHeight;
+            int height;
 
-            if (int.TryParse(h, out rectangleHeight))
+            if (int.TryParse(h, out height))
             {
-                if (rectangleHeight > 1 && rectangleHeight < 490)
+                if (height >= 1 && height < 490)
                 {
-                    this.Height = rectangleHeight;
+                    this.Height = height;
                 }
                 else
                 {
-                    System.Windows.Forms.MessageBox.Show("Height is out of range, please try again");
+                    System.Windows.Forms.MessageBox.Show("Height out of range, please try again");
                 }
             }
         }
 
-        public void ShapeWidth(string w)
+        public void SetWidth(string w)
         {
-            int rectangleWidth;
+            int width;
 
-            if (int.TryParse(w, out rectangleWidth))
+            if (int.TryParse(w, out width))
             {
-                if (rectangleWidth > 1 && rectangleWidth < 660)
+                if (width >= 1 && width < 490)
                 {
-                    this.Width = rectangleWidth;
+                    this.Width = width;
                 }
                 else
                 {
-                    System.Windows.Forms.MessageBox.Show("Width is out of range, please try again");
+                    System.Windows.Forms.MessageBox.Show("Width out of range, please try again");
                 }
             }
         }
-
-        public void ShapeRadius(string r)
+        public void SetRadius(string r)
         {
-            int circleRadius;
+            int radius;
 
-            if (int.TryParse(r, out circleRadius))
+            if (int.TryParse(r, out radius))
             {
-                if (circleRadius > 1 && circleRadius < 490)
+                if (radius >= 1 && radius < 490)
                 {
-                    this.Radius = circleRadius;
+                    this.Radius = radius;
                 }
                 else
                 {
-                    System.Windows.Forms.MessageBox.Show("Radius is out of range, please try again");
+                    System.Windows.Forms.MessageBox.Show("Radius out of range, please try again");
                 }
-               
             }
-           
         }
 
         public int GetHeight()
@@ -77,14 +74,15 @@ namespace paint_project
             return Height;
         }
 
+        public int GetRadius()
+        {
+            return Radius;
+        }
+
         public int GetWidth()
         {
             return Width;
         }
 
-        public int GetRadius()
-        {
-            return Radius;
-        }
     }
 }

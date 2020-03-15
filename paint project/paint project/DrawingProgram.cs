@@ -13,8 +13,9 @@ namespace paint_project
     public partial class DrawingProgram : Form
     {
         Painter _painter = new Painter();
-        Coordinates coor = new Coordinates();
+        Coordinates _coordinates = new Coordinates();
         Dimensions shape = new Dimensions();
+        private bool mouseDown = false;
 
         public DrawingProgram()
         {
@@ -23,12 +24,40 @@ namespace paint_project
 
         private void CreateButton_Click(object sender, EventArgs e)
         {
+            DrawingPanel.Invalidate();
+        }
 
+        private void ShapeBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (ShapeBox.SelectedIndex)
+            {
+                case 0: //rectangle
+                    ClearContext();
+                    RedTextBox.Select();
+                    WidthLabel.Show();
+                    HeightLabel.Show();
+                    WidthTextBox_Rectangle.Show();
+                    HeightTextBox_Rectangle.Show();
+                    break;
+                case 1: //square
+                    ClearContext();
+                    RedTextBox.Select();
+                    WidthLabel.Show();
+                    WidthTextBox_Square.Show();
+                    break;
+                case 2: //circle
+                    ClearContext();
+                    RedTextBox.Select();
+                    RadiusLabel.Show();
+                    RadiusTextBox_Circle.Show();
+                    break;
+            }
         }
 
         private void ClearButton_Click(object sender, EventArgs e)
         {
-
+            ClearAll();
+            DrawingPanel.Invalidate();
         }
 
         private void DrawingProgram_Load(object sender, EventArgs e)
@@ -36,36 +65,60 @@ namespace paint_project
             RedTextBox.TextChanged += new System.EventHandler(this.RTextBox_TextChanged);
             GreenTextBox.TextChanged += new System.EventHandler(this.GTextBox_TextChanged);
             BlueTextBox.TextChanged += new System.EventHandler(this.BTextBox_TextChanged);
+            MessageBox.Show($"Tip: Once you have drawn a shape, click and drag to move the shape.");
+
+
         }
 
-        private void BLabel_Click(object sender, EventArgs e)
+        private void DrawingPanel_Paint(object sender, PaintEventArgs e)
         {
-            if ( radioButton1.Checked == true)
+            Graphics g = e.Graphics;
+            Pen userPen = new Pen(Color.FromArgb(_painter.GetRed(), _painter.GetGreen(), _painter.GetBlue()));
+
+            switch (ShapeBox.SelectedIndex)
             {
-<<<<<<< Updated upstream
-=======
-                case 0://Rectangle
-                    g.DrawRectangle(userPen,coor.XCoordinate(), coor.YCoordinate(),
-                        shape.GetWidth(),shape.GetHeight() );
+                case 0:
+                    g.DrawRectangle(userPen,_coordinates.GetXCoordinate(), _coordinates.GetYCoordinate(),
+                        shape.GetWidth(), shape.GetHeight() );
                     break;
-                case 1://Square
-                    g.DrawRectangle(userPen, coor.XCoordinate() , coor.YCoordinate(), 
+                case 1:
+                    g.DrawRectangle(userPen, _coordinates.GetXCoordinate(), _coordinates.GetYCoordinate(),
                         shape.GetWidth(), shape.GetWidth());
                     break;
-                case 2://Circle
-                    g.DrawEllipse(userPen, coor.XCoordinate(), coor.YCoordinate(),
-                        shape.GetRadius(), shape.GetRadius());
+                case 2:
+                    g.DrawEllipse(userPen, _coordinates.GetXCoordinate(), _coordinates.GetYCoordinate(),
+                        shape.GetRadius() * 2, shape.GetRadius() * 2);
                     break;
-                
             }
         }
->>>>>>> Stashed changes
 
-                
+        private void ClearAll()
+        {
+            foreach (Control control in Controls)
+            {
+                switch (control)
+                {
+                    case ComboBox comboBox:
+                        comboBox.SelectedIndex = -1;
+                        comboBox.Text = @"Shape";
+                        break;
+                    case TextBox textBox:
+                        textBox.Text = string.Empty;
+                        if (textBox.Name == "RadiusTextBox_Circle") textBox.Hide();
+                        if (textBox.Name == "WidthTextBox_Square") textBox.Hide();
+                        if (textBox.Name == "WidthTextBox_Rectangle") textBox.Hide();
+                        if (textBox.Name == "HeightTextBox_Rectangle") textBox.Hide();
+                        break;
+                    case Label label:
+                        if (label.Name == "RadiusLabel") label.Hide();
+                        if (label.Name == "WidthLabel") label.Hide();
+                        if (label.Name == "HeightLabel") label.Hide();
+                        break;
+                }
+            }
+        }
 
-<<<<<<< Updated upstream
-=======
-        private void ClearContext()//Hides vlaues within textboxes
+        private void ClearContext()
         {
             foreach (Control control in Controls)
             {
@@ -84,7 +137,6 @@ namespace paint_project
                         if (label.Name == "HeightLabel") label.Hide();
                         break;
                 }
->>>>>>> Stashed changes
             }
         }
 
@@ -94,147 +146,155 @@ namespace paint_project
             {
                 if (!string.IsNullOrEmpty(RedTextBox.Text))
                 {
-
-
-                    _painter.SetColor(RedTextBox.Text, GreenTextBox.Text, BlueTextBox.Text);
+                    _painter.SetRed(RedTextBox.Text);
                 }
             }
-            catch (Exception)
+            catch (FormatException)
             {
                 //make popo up box and set value back to 0
-              
+                
+
             }
         }
 
-        private void GTextBox_TextChanged(object sender, EventArgs e)//Green value for RGB
+        private void GTextBox_TextChanged(object sender, EventArgs e)
         {
             try
             {
                 if (!string.IsNullOrEmpty(GreenTextBox.Text))
                 {
-
-
-                    _painter.SetColor(RedTextBox.Text, GreenTextBox.Text, BlueTextBox.Text);
+                    _painter.SetGreen(GreenTextBox.Text);
                 }
             }
-            catch (Exception)
+            catch (FormatException)
             {
                 //make popo up box and set value back to 0
 
             }
         }
 
-        private void BTextBox_TextChanged(object sender, EventArgs e)//Blue value for RGB
+        private void BTextBox_TextChanged(object sender, EventArgs e)
         {
             try
             {
                 if (!string.IsNullOrEmpty(BlueTextBox.Text))
                 {
-
-
-                    _painter.SetColor(RedTextBox.Text, GreenTextBox.Text, BlueTextBox.Text);
+                    _painter.SetBlue(BlueTextBox.Text);
                 }
             }
-            catch (Exception)
+            catch (FormatException)
             {
                 //make popo up box and set value back to 0
 
             }
         }
 
-        private void XCoordinate_TextChanged(object sender, EventArgs e)//Sets starting position on the x-axis
+        private void XCoordinate_TextChanged(object sender, EventArgs e)
         {
             try
             {
                 if (!string.IsNullOrEmpty(XCoordinatesTextBox.Text))
                 {
-                    coor.SetX(XCoordinatesTextBox.Text);
+                    _coordinates.SetXCoordinate(XCoordinatesTextBox.Text);
                 }
             }
             catch (FormatException)
             {
+                //make popo up box and set value back to 0
 
-                throw;
             }
         }
 
-        private void YCoordinate_TextChanged(object sender, EventArgs e)//Sets starting position on the y-axis
+        private void YCoordinate_TextChanged(object sender, EventArgs e)
         {
             try
             {
                 if (!string.IsNullOrEmpty(YCoordinatesTextBox.Text))
                 {
-                    coor.SetY(YCoordinatesTextBox.Text);
+                    _coordinates.SetYCoordinate(YCoordinatesTextBox.Text);
                 }
             }
             catch (FormatException)
             {
+                //make popo up box and set value back to 0
 
-                throw;
             }
         }
 
-        private void WidthRectangle_TextChanged(object sender, EventArgs e)//Sets width for rectangle shape
-        {
-            try
-            {
-                if (!string.IsNullOrEmpty(WidthTextBox_Rectangle.Text))
-                {
-                    shape.ShapeWidth(WidthTextBox_Rectangle.Text);
-                }
-            }
-            catch (FormatException)
-            {
-
-                throw;
-            }
-        }
-
-        private void HeightRectangle_TextChanged(object sender, EventArgs e)//Sets height for the rectangle shape
+        private void RactangleHeight_TextChanged(object sender, EventArgs e)
         {
             try
             {
                 if (!string.IsNullOrEmpty(HeightTextBox_Rectangle.Text))
                 {
-                    shape.ShapeHeight(HeightTextBox_Rectangle.Text);
+                    shape.SetHeight(HeightTextBox_Rectangle.Text);
                 }
             }
             catch (FormatException)
             {
+                //make popo up box and set value back to 0
 
-                throw;
             }
         }
 
-        private void WidthSquare_TextChanged(object sender, EventArgs e)//Sets side length for square shape
+        private void ReactangleWidth_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(WidthTextBox_Rectangle.Text))
+                {
+                    shape.SetWidth(WidthTextBox_Rectangle.Text);
+                }
+            }
+            catch (FormatException)
+            {
+                //make popo up box and set value back to 0
+
+            }
+        }
+
+        private void SquareWidth_TextChanged(object sender, EventArgs e)
         {
             try
             {
                 if (!string.IsNullOrEmpty(WidthTextBox_Square.Text))
                 {
-                    shape.ShapeWidth(WidthTextBox_Square.Text);
+                    shape.SetWidth(WidthTextBox_Square.Text);
                 }
             }
             catch (FormatException)
             {
+                //make popo up box and set value back to 0
 
-                throw;
             }
         }
 
-        private void RadiusCircle_TextChanged(object sender, EventArgs e)//Sets the radius for circle shape
+        private void CircleRadius_TextChanged(object sender, EventArgs e)
         {
             try
             {
                 if (!string.IsNullOrEmpty(RadiusTextBox_Circle.Text))
                 {
-                    shape.ShapeRadius(RadiusTextBox_Circle.Text);
+                    shape.SetRadius(RadiusTextBox_Circle.Text);
                 }
             }
             catch (FormatException)
             {
+                //make popo up box and set value back to 0
 
-                throw;
+            }
+        }
+
+        //Here begins the code to move drawn objects based on clicking and dragging
+        private void DrawingPanel_MouseDown(object sender, MouseEventArgs e) => mouseDown = true;
+        private void DrawingPanel_MouseUp(object sender, MouseEventArgs e) => mouseDown = false;
+        private void DrawingPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (mouseDown)
+            {
+                _coordinates.SetXCoordinate(e.X.ToString());
+                _coordinates.SetYCoordinate(e.Y.ToString());
+                DrawingPanel.Invalidate();
             }
         }
     }

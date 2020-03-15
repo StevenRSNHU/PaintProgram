@@ -94,18 +94,5 @@ namespace paint_project
             return bVal;
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

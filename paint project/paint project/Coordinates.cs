@@ -10,50 +10,49 @@ namespace paint_project
     {
         private int X_Coor { get; set; }
         private int Y_Coor { get; set; }
-
         public Coordinates()
         {
-            this.X_Coor = XCoordinate();
-            this.Y_Coor = YCoordinate();
+            this.X_Coor = GetXCoordinate();
+            this.Y_Coor = GetYCoordinate();
         }
 
-        public void SetX(string x)
+        public void SetXCoordinate(string x)
         {
-            int start_X;
-            if (int.TryParse(x, out start_X))
+            int x_coor;
+
+            if (int.TryParse(x, out x_coor))
             {
-                if (start_X >= 0 && start_X <= 667)
+                if (x_coor >= 1 && x_coor <= 500)
                 {
-                    this.X_Coor = start_X;
+                    this.X_Coor = x_coor;
                 }
                 else
                 {
-                    System.Windows.Forms.MessageBox.Show("Value out of range, please try again");
+                    System.Windows.Forms.MessageBox.Show(@"Value out of range, please choose a value less than 490.");
                 }
             }
-            //requires error handling TryParse
         }
-        public void SetY(string y)
+        public void SetYCoordinate(string y)
         {
-            int start_Y;
-            if (int.TryParse(y, out start_Y))
+            int y_coor;
+
+            if (int.TryParse(y, out y_coor))
             {
-                if (start_Y >= 0 && start_Y <= 492)
+                if (y_coor >= 1 && y_coor <= 400)
                 {
-                    this.Y_Coor = start_Y;
+                    this.Y_Coor = y_coor;
                 }
                 else
                 {
-                    System.Windows.Forms.MessageBox.Show("Value out of range, please try again");
+                    System.Windows.Forms.MessageBox.Show(@"Value out of range, please choose a value less than 390.");
                 }
             }
-            //requires erro handling TryParse
         }
-        public int XCoordinate()
+        public int GetXCoordinate()
         {
             return X_Coor;
         }
-        public int YCoordinate()
+        public int GetYCoordinate()
         {
             return Y_Coor;
         }
