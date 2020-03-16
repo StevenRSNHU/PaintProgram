@@ -6,10 +6,10 @@ namespace paint_project
 {
     public partial class DrawingProgram : Form
     {
-        Painter _painter = new Painter();
-        Coordinates _coordinates = new Coordinates();
-        Dimensions shape = new Dimensions();
-        private bool mouseDown = false;
+        private readonly Painter _painter = new Painter();
+        private readonly Coordinates _coordinates = new Coordinates();
+        private readonly Dimensions shape = new Dimensions();
+        private bool mouseDown;
 
         public DrawingProgram()
         {
@@ -56,24 +56,22 @@ namespace paint_project
 
         private void DrawingProgram_Load(object sender, EventArgs e)
         {
-            RedTextBox.TextChanged += new System.EventHandler(this.RTextBox_TextChanged);
-            GreenTextBox.TextChanged += new System.EventHandler(this.GTextBox_TextChanged);
-            BlueTextBox.TextChanged += new System.EventHandler(this.BTextBox_TextChanged);
-            MessageBox.Show($@"Tip: Once you have drawn a shape, click and drag to move the shape.");
-
-
+            RedTextBox.TextChanged += RTextBox_TextChanged;
+            GreenTextBox.TextChanged += GTextBox_TextChanged;
+            BlueTextBox.TextChanged += BTextBox_TextChanged;
+            MessageBox.Show(@"Tip: Once you have drawn a shape, click and drag to move the shape.");
         }
 
         private void DrawingPanel_Paint(object sender, PaintEventArgs e)
         {
-            Graphics g = e.Graphics;
-            Pen userPen = new Pen(Color.FromArgb(_painter.GetRed(), _painter.GetGreen(), _painter.GetBlue()));
+            var g = e.Graphics;
+            var userPen = new Pen(Color.FromArgb(_painter.GetRed(), _painter.GetGreen(), _painter.GetBlue()));
 
             switch (ShapeBox.SelectedIndex)
             {
                 case 0:
-                    g.DrawRectangle(userPen,_coordinates.GetXCoordinate(), _coordinates.GetYCoordinate(),
-                        shape.GetWidth(), shape.GetHeight() );
+                    g.DrawRectangle(userPen, _coordinates.GetXCoordinate(), _coordinates.GetYCoordinate(),
+                        shape.GetWidth(), shape.GetHeight());
                     break;
                 case 1:
                     g.DrawRectangle(userPen, _coordinates.GetXCoordinate(), _coordinates.GetYCoordinate(),
@@ -89,7 +87,6 @@ namespace paint_project
         private void ClearAll()
         {
             foreach (Control control in Controls)
-            {
                 switch (control)
                 {
                     case ComboBox comboBox:
@@ -109,17 +106,16 @@ namespace paint_project
                         if (label.Name == "HeightLabel") label.Hide();
                         break;
                 }
-            }
         }
 
         private void ClearContext()
         {
             foreach (Control control in Controls)
-            {
                 switch (control)
                 {
                     case TextBox textBox:
-                        if (textBox.Name != "RedTextBox" && textBox.Name != "GreenTextBox" && textBox.Name != "BlueTextBox") textBox.Text = string.Empty;
+                        if (textBox.Name != "RedTextBox" && textBox.Name != "GreenTextBox" &&
+                            textBox.Name != "BlueTextBox") textBox.Text = string.Empty;
                         if (textBox.Name == "RadiusTextBox_Circle") textBox.Hide();
                         if (textBox.Name == "WidthTextBox_Square") textBox.Hide();
                         if (textBox.Name == "WidthTextBox_Rectangle") textBox.Hide();
@@ -131,23 +127,17 @@ namespace paint_project
                         if (label.Name == "HeightLabel") label.Hide();
                         break;
                 }
-            }
         }
 
-        private void RTextBox_TextChanged(object sender, EventArgs e)//Red value for RGB
+        private void RTextBox_TextChanged(object sender, EventArgs e) //Red value for RGB
         {
             try
             {
-                if (!string.IsNullOrEmpty(RedTextBox.Text))
-                {
-                    _painter.SetRed(RedTextBox.Text);
-                }
+                if (!string.IsNullOrEmpty(RedTextBox.Text)) _painter.SetRed(RedTextBox.Text);
             }
             catch (FormatException)
             {
-                //make pop-up box and set value back to 0
-
-
+                MessageBox.Show("Error, enter a value between 0-255", "RTextBox");
             }
         }
 
@@ -155,15 +145,11 @@ namespace paint_project
         {
             try
             {
-                if (!string.IsNullOrEmpty(GreenTextBox.Text))
-                {
-                    _painter.SetGreen(GreenTextBox.Text);
-                }
+                if (!string.IsNullOrEmpty(GreenTextBox.Text)) _painter.SetGreen(GreenTextBox.Text);
             }
             catch (FormatException)
             {
-                //make pop-up box and set value back to 0
-
+                MessageBox.Show("Error, enter a value between 0-255", "GTextBox");
             }
         }
 
@@ -171,15 +157,11 @@ namespace paint_project
         {
             try
             {
-                if (!string.IsNullOrEmpty(BlueTextBox.Text))
-                {
-                    _painter.SetBlue(BlueTextBox.Text);
-                }
+                if (!string.IsNullOrEmpty(BlueTextBox.Text)) _painter.SetBlue(BlueTextBox.Text);
             }
             catch (FormatException)
             {
-                //make pop-up box and set value back to 0
-
+                MessageBox.Show("Error, enter a value between 0-255", "BTextBox");
             }
         }
 
@@ -188,14 +170,11 @@ namespace paint_project
             try
             {
                 if (!string.IsNullOrEmpty(XCoordinatesTextBox.Text))
-                {
                     _coordinates.SetXCoordinate(XCoordinatesTextBox.Text);
-                }
             }
             catch (FormatException)
             {
-                //make pop-up box and set value back to 0
-
+                MessageBox.Show("Error, enter a number", "XCoordinate");
             }
         }
 
@@ -204,14 +183,11 @@ namespace paint_project
             try
             {
                 if (!string.IsNullOrEmpty(YCoordinatesTextBox.Text))
-                {
                     _coordinates.SetYCoordinate(YCoordinatesTextBox.Text);
-                }
             }
             catch (FormatException)
             {
-                //make pop-up box and set value back to 0
-
+                MessageBox.Show("Error, enter a number", "YCoordinate");
             }
         }
 
@@ -219,15 +195,11 @@ namespace paint_project
         {
             try
             {
-                if (!string.IsNullOrEmpty(HeightTextBox_Rectangle.Text))
-                {
-                    shape.SetHeight(HeightTextBox_Rectangle.Text);
-                }
+                if (!string.IsNullOrEmpty(HeightTextBox_Rectangle.Text)) shape.SetHeight(HeightTextBox_Rectangle.Text);
             }
             catch (FormatException)
             {
-                //make pop-up box and set value back to 0
-
+                MessageBox.Show("Error, enter a number", "RectangleHeight");
             }
         }
 
@@ -235,15 +207,11 @@ namespace paint_project
         {
             try
             {
-                if (!string.IsNullOrEmpty(WidthTextBox_Rectangle.Text))
-                {
-                    shape.SetWidth(WidthTextBox_Rectangle.Text);
-                }
+                if (!string.IsNullOrEmpty(WidthTextBox_Rectangle.Text)) shape.SetWidth(WidthTextBox_Rectangle.Text);
             }
             catch (FormatException)
             {
-                //make pop-up box and set value back to 0
-
+                MessageBox.Show("Error, enter a number", "RectangleWidth");
             }
         }
 
@@ -251,15 +219,11 @@ namespace paint_project
         {
             try
             {
-                if (!string.IsNullOrEmpty(WidthTextBox_Square.Text))
-                {
-                    shape.SetWidth(WidthTextBox_Square.Text);
-                }
+                if (!string.IsNullOrEmpty(WidthTextBox_Square.Text)) shape.SetWidth(WidthTextBox_Square.Text);
             }
             catch (FormatException)
             {
-                //make pop-up box and set value back to 0
-
+                MessageBox.Show("Error, enter a number", "SquareWidth");
             }
         }
 
@@ -267,21 +231,25 @@ namespace paint_project
         {
             try
             {
-                if (!string.IsNullOrEmpty(RadiusTextBox_Circle.Text))
-                {
-                    shape.SetRadius(RadiusTextBox_Circle.Text);
-                }
+                if (!string.IsNullOrEmpty(RadiusTextBox_Circle.Text)) shape.SetRadius(RadiusTextBox_Circle.Text);
             }
             catch (FormatException)
             {
-                //make pop-up box and set value back to 0
-
+                MessageBox.Show("Error, enter a number", "CircleRadius");
             }
         }
 
         //Here begins the code to move drawn objects based on clicking and dragging
-        private void DrawingPanel_MouseDown(object sender, MouseEventArgs e) => mouseDown = true;
-        private void DrawingPanel_MouseUp(object sender, MouseEventArgs e) => mouseDown = false;
+        private void DrawingPanel_MouseDown(object sender, MouseEventArgs e)
+        {
+            mouseDown = true;
+        }
+
+        private void DrawingPanel_MouseUp(object sender, MouseEventArgs e)
+        {
+            mouseDown = false;
+        }
+
         private void DrawingPanel_MouseMove(object sender, MouseEventArgs e)
         {
             if (mouseDown)
