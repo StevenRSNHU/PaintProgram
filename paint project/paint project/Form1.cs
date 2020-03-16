@@ -65,7 +65,8 @@ namespace paint_project
             }
             catch (Exception)
             {
-                //make popo up box and set value back to 0
+                //make pop up box
+                MessageBox.Show("Error, enter a value between 0-255", "RTextBox");
               
             }
         }
@@ -83,7 +84,9 @@ namespace paint_project
             }
             catch (Exception)
             {
-                //make popo up box and set value back to 0
+                //make pop up box
+                MessageBox.Show("Error, enter a value between 0-255", "GTextBox");
+               
 
             }
         }
@@ -101,7 +104,8 @@ namespace paint_project
             }
             catch (Exception)
             {
-                //make popo up box and set value back to 0
+                //make pop up box
+                MessageBox.Show("Error, enter a value between 0-255", "BTextBox");
 
             }
         }
